@@ -5,24 +5,15 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Cell {
+public class Cell implements IPrintableCell {
 
-    // TODO make final
-    private CellType type;
-
-    private int cost;
+    private final CellType type;
 
     @EqualsAndHashCode.Include
     private final int x;
 
     @EqualsAndHashCode.Include
     private final int y;
-
-    private boolean waitingProcessing;
-
-    private boolean selected;
-
-    private int heuristicsEstimate = -1;
 
     public Cell(CellType type, int x, int y) {
         this.type = type;
