@@ -30,14 +30,15 @@ public class Main {
         CompletableFuture.runAsync(() -> {
                     var pathFinder = new AStarPathFinder(mazePainter);
                     var path = pathFinder.findPath(maze);
-//        maze.getCells()
-//                .stream()
-//                .flatMap(Collection::stream)
-//                .filter(cell -> cell.getType() == CellType.FIELD)
-//                .filter(path::contains)
-//                .forEach(cell -> cell.setOnPath(true));
+                    maze.getCells()
+                            .stream()
+                            .flatMap(Collection::stream)
+                            .filter(cell -> cell.getType() == CellType.FIELD)
+                            .filter(path::contains)
+                            .forEach(cell -> cell.setOnPath(true));
                     System.out.println(maze);
                     System.out.println(path);
+                    mazePainter.setMaze(maze);
                 }
         ).thenRun(frame::repaint);
     }
