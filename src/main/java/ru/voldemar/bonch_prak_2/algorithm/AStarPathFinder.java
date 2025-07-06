@@ -44,9 +44,14 @@ public class AStarPathFinder extends AbstractPathFinder implements IPathFindingA
                 cellToVisit.add(neighbour);
             }
             visitedCells.add(cur);
+            mazePainter.paintImmediately(0, 0, 1000, 1000);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             cur.markAsVisited();
             cur = cellToVisit.poll();
-            mazePainter.repaint();
         }
         System.out.println(astarMaze);
         if (cur == end) {

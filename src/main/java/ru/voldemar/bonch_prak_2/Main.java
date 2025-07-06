@@ -39,6 +39,6 @@ public class Main {
                     System.out.println(maze);
                     System.out.println(path);
                 }
-        );
+        ).thenRun(frame::repaint);
     }
 }

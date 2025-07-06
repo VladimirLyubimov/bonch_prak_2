@@ -57,15 +57,15 @@ public class AStarCell extends Cell {
 
     @Override
     public void print(Graphics g) {
-        if (getType() == CellType.FIELD) {
+//        if (getType() == CellType.FIELD) {
             if (cur) {
                 g.setColor(Color.RED);
             } else if (visited) {
                 g.setColor(Color.YELLOW);
             } else if (queued) {
                 g.setColor(Color.CYAN);
-            }
-        } else {
+            } else {
+//        } else {
             g.setColor(getType().getColor());
         }
         g.fillRect(getX() * CELL_SIZE, getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);

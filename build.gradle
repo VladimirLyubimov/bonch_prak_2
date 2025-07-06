@@ -9,6 +9,13 @@ repositories {
     mavenCentral()
 }
 
+jar {
+    manifest {
+        attributes["Manifest-Version"] = "1.0"
+        attributes["Main-Class"] = "ru.voldemar.bonch_prak_2.Main"
+    }
+}
+
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.38'
     annotationProcessor 'org.projectlombok:lombok:1.18.38'
