@@ -9,18 +9,20 @@ import ru.voldemar.bonch_prak_2.utils.MazeUtils;
 
 import javax.swing.*;
 import java.io.File;
+import java.net.URISyntaxException;
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
 
-    public static void main(String... args) {
+    public static void main(String... args) throws URISyntaxException {
         JFrame frame = new JFrame("Pathfinder");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setSize(1000, 1000);
         frame.setVisible(true);
-        Maze<Cell> maze = MazeUtils.loadFromFile(new File("C:\\Users\\VoLdEmAr\\IdeaProjects\\bonch_prak_2\\src\\main\\resources\\mazes\\square_maze_with_blocks.txt"));
+        var file = Thread.currentThread().getContextClassLoader().getResource("mazes\\square_maze_with_blocks.txt");
+        Maze<Cell> maze = MazeUtils.loadFromFile(new File(file.toURI()));
         MazePainter mazePainter = new MazePainter();
         mazePainter.setMaze(maze);
         frame.add(mazePainter);
