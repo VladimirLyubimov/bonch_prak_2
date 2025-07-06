@@ -2,6 +2,7 @@ package ru.voldemar.bonch_prak_2.model;
 
 import lombok.Data;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,14 @@ public class Maze<T extends Cell> {
                 row.add(cellConstructor.apply(maze.getCells().get(i).get(j)));
             }
             cells.add(row);
+        }
+    }
+
+    public void print(Graphics g){
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                cells.get(i).get(j).print(g);
+            }
         }
     }
 
