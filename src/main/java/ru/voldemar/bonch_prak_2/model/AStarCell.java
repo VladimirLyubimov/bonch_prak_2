@@ -3,6 +3,7 @@ package ru.voldemar.bonch_prak_2.model;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import ru.voldemar.bonch_prak_2.gui.MazePainter;
 
 import java.awt.*;
 
@@ -15,38 +16,14 @@ public class AStarCell extends Cell {
 
     private double heuristicsEstimate = -1;
 
-    private boolean visited;
-
-    private boolean cur;
-
-    private boolean queued;
-
     public AStarCell(Cell cell) {
         super(cell.getType(), cell.getX(), cell.getY());
     }
 
-    public void markAsVisited() {
-        this.visited = true;
-        this.cur = false;
-        this.queued = false;
-    }
-
-    public void markAsCur() {
-        this.cur = true;
-        this.queued = false;
-        this.visited = false;
-    }
-
-    public void markedAsQueued() {
-        this.queued = true;
-        this.visited = false;
-        this.cur = false;
-    }
-
     /**
-     * Устанавливаем ячейке
+     * Устанавливаем ячейке эвристическую оценку.
      *
-     * @param destination
+     * @param destination Ячейка, до которой рассчитывается оценка.
      */
     public void setHeuristicsEstimate(AStarCell destination) {
         heuristicsEstimate = cost + Math.hypot(
@@ -56,21 +33,9 @@ public class AStarCell extends Cell {
     }
 
     @Override
-    public void print(Graphics g) {
-//        if (getType() == CellType.FIELD) {
-            if (cur) {
-                g.setColor(Color.RED);
-            } else if (visited) {
-                g.setColor(Color.YELLOW);
-            } else if (queued) {
-                g.setColor(Color.CYAN);
-            } else {
-//        } else {
-            g.setColor(getType().getColor());
-        }
-        g.fillRect(getX() * CELL_SIZE, getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+    public void printText(Graphics g) {
         g.setColor(Color.BLACK);
-        g.drawString("Estimate is %.2f".formatted(heuristicsEstimate), getX() * CELL_SIZE, getY() * CELL_SIZE + 10);
+        g.drawString("Estimate is %.2f".formatted(heuristicsEstimate), getX() * MazePainter.CELL_SIZE, getY() * MazePainter.CELL_SIZE + 10);
     }
 
     @Override

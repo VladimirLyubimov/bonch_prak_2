@@ -1,6 +1,5 @@
 package ru.voldemar.bonch_prak_2.algorithm;
 
-import lombok.RequiredArgsConstructor;
 import ru.voldemar.bonch_prak_2.gui.MazePainter;
 import ru.voldemar.bonch_prak_2.model.AStarCell;
 import ru.voldemar.bonch_prak_2.model.Cell;
@@ -15,13 +14,14 @@ import java.util.Set;
 /**
  * Реализация {@link IPathFindingAlgorithm}, использующая алгоритм A* для поиска пути.
  */
-@RequiredArgsConstructor
 public class AStarPathFinder extends AbstractPathFinder implements IPathFindingAlgorithm {
 
-    private final MazePainter mazePainter;
+    public AStarPathFinder(MazePainter mazePainter) {
+        super(mazePainter);
+    }
 
     @Override
-    protected Cell doFindPath(Maze<Cell> maze) {
+    protected Cell doFindPath(Maze<? extends Cell> maze) {
         final PriorityQueue<AStarCell> cellToVisit = new PriorityQueue<>(new CellComparator());
         final Set<AStarCell> visitedCells = new HashSet<>();
         Maze<AStarCell> astarMaze = new Maze<>(maze, AStarCell::new);
@@ -30,11 +30,12 @@ public class AStarPathFinder extends AbstractPathFinder implements IPathFindingA
         final AStarCell end = astarMaze.getFirstCellOfType(CellType.END);
         AStarCell cur = start;
         while (cur != null && cur != end) {
+            System.out.println("x = %s, y = %s".formatted(cur.getX(), cur.getY()));
             cur.markAsCur();
             int curCost = cur.getCost();
             var neighbours = astarMaze.getNotBlockedNeighbours(cur);
             for (var neighbour : neighbours) {
-                if (visitedCells.contains(neighbour) || (neighbour.getCost() > 0 && neighbour.getCost() < curCost + 1)) {
+                if (visitedCells.contains(neighbour) || (neighbour.getCost() > 0 && neighbour.getCost() <= curCost + 1)) {
                     continue;
                 }
                 neighbour.setCost(curCost + 1);
@@ -43,20 +44,17 @@ public class AStarPathFinder extends AbstractPathFinder implements IPathFindingA
                 neighbour.markedAsQueued();
                 cellToVisit.add(neighbour);
             }
+            doPaint();
             visitedCells.add(cur);
-            mazePainter.paintImmediately(0, 0, 1000, 1000);
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
             cur.markAsVisited();
             cur = cellToVisit.poll();
         }
-        System.out.println(astarMaze);
         if (cur == end) {
             System.out.println("End has been found");
-            return end;
+            if (cur != null) {
+                cur.markAsCur();
+            }
+            return cur;
         } else {
             System.out.println("End of the maze is unreachable");
             return null;

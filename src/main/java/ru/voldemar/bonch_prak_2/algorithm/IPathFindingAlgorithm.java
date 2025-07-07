@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IPathFindingAlgorithm {
 
-    List<Cell> findPath(Maze<Cell> maze);
+    List<Cell> findPath(Maze<? extends Cell> maze);
 }

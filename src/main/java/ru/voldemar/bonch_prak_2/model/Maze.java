@@ -6,10 +6,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Data
-public class Maze<T extends Cell> {
+public class Maze<T extends Cell> implements IPrintable {
 
     private final List<List<T>> cells;
     private final int rows;
@@ -24,7 +26,20 @@ public class Maze<T extends Cell> {
         }
     }
 
-    public Maze(Maze<Cell> maze, Function<Cell, T> cellConstructor) {
+    public Maze(int rows, int columns, BiFunction<Integer, Integer, T> cellCreator) {
+        this.rows = rows;
+        this.columns = columns;
+        cells = new ArrayList<>(rows);
+        for (int i = 0; i < rows; i++) {
+            List<T> row = new ArrayList<>(columns);
+            for (int j = 0; j < columns; j++) {
+                row.add(cellCreator.apply(j, i));
+            }
+            cells.add(row);
+        }
+    }
+
+    public Maze(Maze<? extends Cell> maze, Function<Cell, T> cellConstructor) {
         rows = maze.getRows();
         columns = maze.getColumns();
         cells = new ArrayList<>(rows);
@@ -37,10 +52,23 @@ public class Maze<T extends Cell> {
         }
     }
 
-    public void print(Graphics g){
+    public void print(Graphics g) {
+        Cell cur = null;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                cells.get(i).get(j).print(g);
+                Cell toPrint = cells.get(i).get(j);
+                toPrint.print(g);
+                if (cur == null && toPrint.isCur()) {
+                    cur = toPrint;
+                }
+            }
+        }
+        if (cur != null) {
+            cur.printPath(g);
+        }
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                cells.get(i).get(j).printText(g);
             }
         }
     }

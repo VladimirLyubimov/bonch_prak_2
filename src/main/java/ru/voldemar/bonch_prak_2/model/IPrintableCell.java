@@ -2,9 +2,10 @@ package ru.voldemar.bonch_prak_2.model;
 
 import java.awt.*;
 
-public interface IPrintableCell {
+public interface IPrintableCell extends IPrintable {
 
-    int CELL_SIZE = 100;
+    void printPath(Graphics g);
 
-    void print(Graphics g);
+    default void printText(Graphics g) {
+    }
 }
