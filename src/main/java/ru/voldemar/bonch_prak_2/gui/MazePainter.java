@@ -1,5 +1,12 @@
 package ru.voldemar.bonch_prak_2.gui;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.util.Map;
+import java.util.function.Function;
+
+import javax.swing.JComponent;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -11,17 +18,12 @@ import ru.voldemar.bonch_prak_2.model.Cell;
 import ru.voldemar.bonch_prak_2.model.CellType;
 import ru.voldemar.bonch_prak_2.model.Maze;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.Map;
-import java.util.function.Function;
-
 @Setter
 @Getter
 @RequiredArgsConstructor
 public class MazePainter extends JComponent {
 
-    public static final int CELL_SIZE = 100;
+    public static int cellSize = 100;
 
     private static final Map<AlgoType, Function<MazePainter, IPathFindingAlgorithm>> PATH_FINDER_FACTORY = Map.of(
             AlgoType.A_STAR, AStarPathFinder::new,
@@ -70,5 +72,12 @@ public class MazePainter extends JComponent {
             g.fillRect(0, 0, getWidth(), getHeight());
             maze.print(g);
         }
+    }
+
+    public void setCellSize(int size) {
+        cellSize = size;
+    }
+    public int getCellSize() {
+        return cellSize;
     }
 }

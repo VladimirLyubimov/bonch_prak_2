@@ -1,10 +1,19 @@
 package ru.voldemar.bonch_prak_2.gui;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+
 import ru.voldemar.bonch_prak_2.algorithm.AlgoType;
 import ru.voldemar.bonch_prak_2.model.CellType;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class Window extends JFrame {
 
@@ -54,6 +63,18 @@ public class Window extends JFrame {
         resetButton.addActionListener(e -> mazeGUI.reset());
 //        resetButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
+        JButton addCellSize = new JButton("+");
+        addCellSize.addActionListener(e -> mazeGUI.setCellSize(mazeGUI.getCellSize() + 1));
+
+        JLabel cellSize = new JLabel(String.valueOf(mazeGUI.getCellSize()));
+
+        JButton subCellSize = new JButton("-");
+        addCellSize.addActionListener(e -> {
+                mazeGUI.setCellSize(mazeGUI.getCellSize() - 1);
+                mazeGUI.re
+        });
+
+
         mazeBuildingButtons.add(setStartButton);
         mazeBuildingButtons.add(setEndButton);
         mazeBuildingButtons.add(resetButton);
@@ -62,6 +83,9 @@ public class Window extends JFrame {
         box.add(mazeBuildingButtons);
         box.add(algoSelector);
         box.add(startButton);
+        box.add(addCellSize);
+        box.add(cellSize);
+        box.add(subCellSize);
         add(box);
         revalidate();
     }
