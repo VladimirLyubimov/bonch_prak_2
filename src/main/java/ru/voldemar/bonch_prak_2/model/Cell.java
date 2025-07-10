@@ -1,11 +1,14 @@
 package ru.voldemar.bonch_prak_2.model;
 
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import ru.voldemar.bonch_prak_2.gui.MazePainter;
-
-import java.awt.*;
-import java.awt.geom.Line2D;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -77,7 +80,7 @@ public class Cell implements IPrintableCell {
                 g.setColor(getType().getColor());
             }
         }
-        g.fillRect(getX() *  MazePainter.CELL_SIZE, getY() *  MazePainter.CELL_SIZE,  MazePainter.CELL_SIZE,  MazePainter.CELL_SIZE);
+        g.fillRect(getX() *  MazePainter.cellSize, getY() *  MazePainter.cellSize,  MazePainter.cellSize,  MazePainter.cellSize);
     }
 
     @Override
@@ -92,10 +95,10 @@ public class Cell implements IPrintableCell {
     }
 
     protected double getXCenter() {
-        return getX() *  MazePainter.CELL_SIZE + (double)  MazePainter.CELL_SIZE / 2;
+        return getX() *  MazePainter.cellSize + (double)  MazePainter.cellSize / 2;
     }
 
     protected double getYCenter() {
-        return getY() *  MazePainter.CELL_SIZE + (double)  MazePainter.CELL_SIZE / 2;
+        return getY() *  MazePainter.cellSize + (double)  MazePainter.cellSize / 2;
     }
 }
