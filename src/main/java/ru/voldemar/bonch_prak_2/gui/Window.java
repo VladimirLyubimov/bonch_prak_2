@@ -30,7 +30,7 @@ public class Window extends JFrame {
         mazeGUI.addMouseListener(cellAdder);
         JList<AlgoType> algoSelector = new JList<>(AlgoType.values());
         algoSelector.addListSelectionListener(
-                e -> mazeGUI.setAlgo(AlgoType.values()[e.getFirstIndex()])
+                e -> mazeGUI.setAlgo(algoSelector.getSelectedValue())
         );
 
         JButton startButton = new JButton("Start!");
