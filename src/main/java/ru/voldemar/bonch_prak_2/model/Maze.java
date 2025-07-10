@@ -1,6 +1,7 @@
 package ru.voldemar.bonch_prak_2.model;
 
 import lombok.Data;
+import ru.voldemar.bonch_prak_2.gui.MazePainter;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -66,6 +67,16 @@ public class Maze<T extends Cell> implements IPrintable {
         if (cur != null) {
             cur.printPath(g);
         }
+
+        g.setColor(Color.BLACK);
+        ((Graphics2D) g).setStroke(new BasicStroke(1));
+        for (int i = 0; i <= rows; i++) {
+            g.drawLine(0, i * MazePainter.cellSize, columns * MazePainter.cellSize, i * MazePainter.cellSize);
+        }
+        for (int i = 0; i <= columns; i++) {
+            g.drawLine(i * MazePainter.cellSize, 0, i * MazePainter.cellSize, rows * MazePainter.cellSize);
+        }
+
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 cells.get(i).get(j).printText(g);

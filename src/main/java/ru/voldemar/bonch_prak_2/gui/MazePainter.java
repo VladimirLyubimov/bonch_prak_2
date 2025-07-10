@@ -1,14 +1,6 @@
 package ru.voldemar.bonch_prak_2.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.Map;
-import java.util.function.Function;
-
-import javax.swing.JComponent;
-
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.Synchronized;
 import ru.voldemar.bonch_prak_2.algorithm.AStarPathFinder;
@@ -19,9 +11,17 @@ import ru.voldemar.bonch_prak_2.model.Cell;
 import ru.voldemar.bonch_prak_2.model.CellType;
 import ru.voldemar.bonch_prak_2.model.Maze;
 
+import javax.swing.*;
+import java.awt.*;
+import java.util.Map;
+import java.util.function.Function;
+
 @Setter
 @Getter
 public class MazePainter extends JComponent {
+
+    private static final int DEFAULT_ROW_COUNT = 7;
+    private static final int DEFAULT_COLUMN_COUNT = 10;
 
     public static int cellSize = 100;
 
@@ -35,9 +35,15 @@ public class MazePainter extends JComponent {
     private transient Maze<? extends Cell> maze;
     private CellType addType;
 
+    public MazePainter() {
+        super();
+        setPreferredSize(new Dimension(cellSize * DEFAULT_COLUMN_COUNT, cellSize * DEFAULT_ROW_COUNT));
+        reset();
+    }
+
     @Synchronized
     public void reset() {
-        maze = new Maze<>(7, 10, (x, y) -> new Cell(CellType.FIELD, x, y));
+        maze = new Maze<>(DEFAULT_ROW_COUNT, DEFAULT_COLUMN_COUNT, (x, y) -> new Cell(CellType.FIELD, x, y));
         pathFinder = null;
         repaint();
     }
@@ -76,7 +82,9 @@ public class MazePainter extends JComponent {
 
     public void setCellSize(int size) {
         cellSize = size;
+        repaint();
     }
+
     public int getCellSize() {
         return cellSize;
     }

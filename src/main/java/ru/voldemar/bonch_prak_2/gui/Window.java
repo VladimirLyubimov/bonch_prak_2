@@ -3,14 +3,7 @@ package ru.voldemar.bonch_prak_2.gui;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import ru.voldemar.bonch_prak_2.algorithm.AlgoType;
 import ru.voldemar.bonch_prak_2.model.CellType;
@@ -33,8 +26,6 @@ public class Window extends JFrame {
         Box box = Box.createVerticalBox();
         MazePainter mazeGUI = new MazePainter();
         mazeGUI.setStepDelay(DEFAULT_STEP_DELAY);
-        mazeGUI.setPreferredSize(new Dimension(1000, 700));
-        mazeGUI.reset();
         CellAdder cellAdder = new CellAdder(mazeGUI);
         mazeGUI.addMouseListener(cellAdder);
         JList<AlgoType> algoSelector = new JList<>(AlgoType.values());
@@ -67,6 +58,12 @@ public class Window extends JFrame {
         JPanel mazeBuildingButtons = new JPanel(new FlowLayout());
         mazeBuildingButtons.setPreferredSize(new Dimension(mazeGUI.getWidth(), 30));
 
+        JButton addCellSize = new JButton("Increase cell display size");
+        addCellSize.addActionListener(e -> mazeGUI.setCellSize(mazeGUI.getCellSize() + 5));
+
+        JButton subCellSize = new JButton("Decrease cell display size");
+        subCellSize.addActionListener(e -> mazeGUI.setCellSize(mazeGUI.getCellSize() - 5));
+
         JButton setStartButton = new JButton("Set start");
         setStartButton.addActionListener(e -> cellAdder.setCellType(CellType.START));
 
@@ -76,21 +73,12 @@ public class Window extends JFrame {
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(e -> mazeGUI.reset());
 
-        JButton addCellSize = new JButton("+");
-        addCellSize.addActionListener(e -> mazeGUI.setCellSize(mazeGUI.getCellSize() + 1));
-
-        JLabel cellSize = new JLabel(String.valueOf(mazeGUI.getCellSize()));
-
-        JButton subCellSize = new JButton("-");
-        addCellSize.addActionListener(e -> {
-                mazeGUI.setCellSize(mazeGUI.getCellSize() - 1);
-                mazeGUI.re
-        });
-
-
+        mazeBuildingButtons.add(addCellSize);
+        mazeBuildingButtons.add(subCellSize);
         mazeBuildingButtons.add(setStartButton);
         mazeBuildingButtons.add(setEndButton);
         mazeBuildingButtons.add(resetButton);
         return mazeBuildingButtons;
     }
+
 }
