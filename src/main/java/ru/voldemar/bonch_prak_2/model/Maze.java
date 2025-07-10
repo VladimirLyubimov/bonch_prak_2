@@ -81,7 +81,7 @@ public class Maze<T extends Cell> implements IPrintable {
                 .orElseThrow();
     }
 
-    public List<T> getNotBlockedNeighbours(T cell) {
+    public List<T> getNotBlockedNeighbours(Cell cell) {
         int x = cell.getX();
         int y = cell.getY();
         List<T> res = new ArrayList<>();

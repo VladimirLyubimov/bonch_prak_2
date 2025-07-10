@@ -2,11 +2,14 @@ package ru.voldemar.bonch_prak_2.gui;
 
 import ru.voldemar.bonch_prak_2.algorithm.AlgoType;
 import ru.voldemar.bonch_prak_2.model.CellType;
+import ru.voldemar.bonch_prak_2.utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Window extends JFrame {
+
+    private static final int DEFAULT_STEP_DELAY = 500;
 
     public Window(String title) {
         setTitle(title);
@@ -18,10 +21,9 @@ public class Window extends JFrame {
     }
 
     private void initComponents() {
-        BoxLayout gridLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
         Box box = Box.createVerticalBox();
-        MazePainter mazeGUI = new MazePainter(500);
-        mazeGUI.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+        MazePainter mazeGUI = new MazePainter();
+        mazeGUI.setStepDelay(DEFAULT_STEP_DELAY);
         mazeGUI.setPreferredSize(new Dimension(1000, 700));
         mazeGUI.reset();
         CellAdder cellAdder = new CellAdder(mazeGUI);
@@ -30,40 +32,44 @@ public class Window extends JFrame {
         algoSelector.addListSelectionListener(
                 e -> mazeGUI.setAlgo(AlgoType.values()[e.getFirstIndex()])
         );
-//        algoSelector.setPreferredSize(new Dimension(100, 100));
 
         JButton startButton = new JButton("Start!");
-//        startButton.setPreferredSize(new Dimension(100, 100));
         startButton.addActionListener(e -> mazeGUI.findPath());
 
-        JPanel mazeBuildingButtons = new JPanel(new FlowLayout());
-        mazeBuildingButtons.setPreferredSize(new Dimension(mazeGUI.getWidth(), 30));
+        JTextField algoStepDelayInput = new JTextField("Input delay between algorithm steps in milliseconds (default is 500)");
+        algoStepDelayInput.addActionListener(
+                e -> mazeGUI.setStepDelay(Utils.parseIntOrDefault(algoStepDelayInput.getText(), DEFAULT_STEP_DELAY))
+        );
 
-        JButton setStartButton = new JButton("Set start");
-//        setStartButton.setPreferredSize(new Dimension(mazeBuildingButtons.getWidth() / 3, 100));
-        setStartButton.addActionListener(e -> cellAdder.setCellType(CellType.START));
-//        setStartButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        JButton setEndButton = new JButton("Set end");
-//        setEndButton.setPreferredSize(new Dimension(mazeBuildingButtons.getWidth() / 3, 100));
-        setEndButton.addActionListener(e -> cellAdder.setCellType(CellType.END));
-//        setEndButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        JButton resetButton = new JButton("Reset");
-//        resetButton.setPreferredSize(new Dimension(mazeBuildingButtons.getWidth() / 3, 100));
-        resetButton.addActionListener(e -> mazeGUI.reset());
-//        resetButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-
-        mazeBuildingButtons.add(setStartButton);
-        mazeBuildingButtons.add(setEndButton);
-        mazeBuildingButtons.add(resetButton);
+        JPanel mazeBuildingButtons = getMazeBuildingButtons(mazeGUI, cellAdder);
+        JPanel algoSettings = new JPanel(new FlowLayout());
+        algoSettings.add(algoSelector);
+        algoSettings.add(algoStepDelayInput);
 
         box.add(mazeGUI);
         box.add(mazeBuildingButtons);
-        box.add(algoSelector);
+        box.add(algoSettings);
         box.add(startButton);
         add(box);
         revalidate();
     }
 
+    private JPanel getMazeBuildingButtons(MazePainter mazeGUI, CellAdder cellAdder) {
+        JPanel mazeBuildingButtons = new JPanel(new FlowLayout());
+        mazeBuildingButtons.setPreferredSize(new Dimension(mazeGUI.getWidth(), 30));
+
+        JButton setStartButton = new JButton("Set start");
+        setStartButton.addActionListener(e -> cellAdder.setCellType(CellType.START));
+
+        JButton setEndButton = new JButton("Set end");
+        setEndButton.addActionListener(e -> cellAdder.setCellType(CellType.END));
+
+        JButton resetButton = new JButton("Reset");
+        resetButton.addActionListener(e -> mazeGUI.reset());
+
+        mazeBuildingButtons.add(setStartButton);
+        mazeBuildingButtons.add(setEndButton);
+        mazeBuildingButtons.add(resetButton);
+        return mazeBuildingButtons;
+    }
 }

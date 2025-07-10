@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.Synchronized;
 import ru.voldemar.bonch_prak_2.algorithm.AStarPathFinder;
 import ru.voldemar.bonch_prak_2.algorithm.AlgoType;
+import ru.voldemar.bonch_prak_2.algorithm.BFSPathFinder;
 import ru.voldemar.bonch_prak_2.algorithm.IPathFindingAlgorithm;
 import ru.voldemar.bonch_prak_2.model.Cell;
 import ru.voldemar.bonch_prak_2.model.CellType;
@@ -18,17 +19,16 @@ import java.util.function.Function;
 
 @Setter
 @Getter
-@RequiredArgsConstructor
 public class MazePainter extends JComponent {
 
     public static final int CELL_SIZE = 100;
 
     private static final Map<AlgoType, Function<MazePainter, IPathFindingAlgorithm>> PATH_FINDER_FACTORY = Map.of(
             AlgoType.A_STAR, AStarPathFinder::new,
-            AlgoType.BFS, mazePainter -> null
+            AlgoType.BFS, BFSPathFinder::new
     );
 
-    private final int stepDelay;
+    private int stepDelay;
     private transient IPathFindingAlgorithm pathFinder;
     private transient Maze<? extends Cell> maze;
     private CellType addType;

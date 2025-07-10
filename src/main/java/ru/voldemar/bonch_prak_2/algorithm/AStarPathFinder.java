@@ -30,7 +30,6 @@ public class AStarPathFinder extends AbstractPathFinder implements IPathFindingA
         final AStarCell end = astarMaze.getFirstCellOfType(CellType.END);
         AStarCell cur = start;
         while (cur != null && cur != end) {
-            System.out.println("x = %s, y = %s".formatted(cur.getX(), cur.getY()));
             cur.markAsCur();
             int curCost = cur.getCost();
             var neighbours = astarMaze.getNotBlockedNeighbours(cur);
