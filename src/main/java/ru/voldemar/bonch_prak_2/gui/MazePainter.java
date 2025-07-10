@@ -76,6 +76,7 @@ public class MazePainter extends JComponent {
 
     public void setCellSize(int size) {
         cellSize = size;
+        repaint();
     }
     public int getCellSize() {
         return cellSize;

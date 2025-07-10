@@ -1,11 +1,13 @@
 package ru.voldemar.bonch_prak_2.model;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import ru.voldemar.bonch_prak_2.gui.MazePainter;
-
-import java.awt.*;
 
 @Getter
 @Setter
@@ -35,6 +37,7 @@ public class AStarCell extends Cell {
     @Override
     public void printText(Graphics g) {
         g.setColor(Color.BLACK);
+        g.setFont(new Font("Ariel", Font.PLAIN, MazePainter.cellSize / 9));
         g.drawString("Estimate is %.2f".formatted(heuristicsEstimate), getX() * MazePainter.cellSize, getY() * MazePainter.cellSize + 10);
     }
 

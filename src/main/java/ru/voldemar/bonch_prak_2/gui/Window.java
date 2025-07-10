@@ -69,10 +69,7 @@ public class Window extends JFrame {
         JLabel cellSize = new JLabel(String.valueOf(mazeGUI.getCellSize()));
 
         JButton subCellSize = new JButton("-");
-        addCellSize.addActionListener(e -> {
-                mazeGUI.setCellSize(mazeGUI.getCellSize() - 1);
-                mazeGUI.re
-        });
+        addCellSize.addActionListener(e -> {mazeGUI.setCellSize(mazeGUI.getCellSize() - 1);});
 
 
         mazeBuildingButtons.add(setStartButton);
