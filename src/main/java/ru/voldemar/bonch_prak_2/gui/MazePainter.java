@@ -10,13 +10,9 @@ import ru.voldemar.bonch_prak_2.algorithm.IPathFindingAlgorithm;
 import ru.voldemar.bonch_prak_2.model.Cell;
 import ru.voldemar.bonch_prak_2.model.CellType;
 import ru.voldemar.bonch_prak_2.model.Maze;
-import ru.voldemar.bonch_prak_2.utils.MazeUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.io.File;
-import java.net.URISyntaxException;
 import java.util.Map;
 import java.util.function.Function;
 

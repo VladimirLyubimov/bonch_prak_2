@@ -1,14 +1,10 @@
 package ru.voldemar.bonch_prak_2.gui;
 
 import ru.voldemar.bonch_prak_2.algorithm.AlgoType;
-import ru.voldemar.bonch_prak_2.CellAdder;
-import ru.voldemar.bonch_prak_2.MazePainter;
 import ru.voldemar.bonch_prak_2.model.CellType;
 
 import javax.swing.*;
 import java.awt.*;
-
-import java.net.URISyntaxException;
 
 public class Window extends JFrame {
 
@@ -16,15 +12,17 @@ public class Window extends JFrame {
         setTitle(title);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        initComponents();
         pack();
         setVisible(true);
     }
 
     private void initComponents() {
-        BorderLayout gridLayout = new BorderLayout();
+        BoxLayout gridLayout = new BoxLayout(this, BoxLayout.Y_AXIS);
+        Box box = Box.createVerticalBox();
         MazePainter mazeGUI = new MazePainter(500);
         mazeGUI.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        mazeGUI.setPreferredSize(new Dimension(700, 700));
+        mazeGUI.setPreferredSize(new Dimension(1000, 700));
         mazeGUI.reset();
         CellAdder cellAdder = new CellAdder(mazeGUI);
         mazeGUI.addMouseListener(cellAdder);
@@ -32,38 +30,39 @@ public class Window extends JFrame {
         algoSelector.addListSelectionListener(
                 e -> mazeGUI.setAlgo(AlgoType.values()[e.getFirstIndex()])
         );
-        algoSelector.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
-        algoSelector.setPreferredSize(new Dimension(100, 100));
+//        algoSelector.setPreferredSize(new Dimension(100, 100));
 
         JButton startButton = new JButton("Start!");
-        startButton.setPreferredSize(new Dimension(100, 100));
+//        startButton.setPreferredSize(new Dimension(100, 100));
         startButton.addActionListener(e -> mazeGUI.findPath());
-        startButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+
+        JPanel mazeBuildingButtons = new JPanel(new FlowLayout());
+        mazeBuildingButtons.setPreferredSize(new Dimension(mazeGUI.getWidth(), 30));
 
         JButton setStartButton = new JButton("Set start");
-        setStartButton.setPreferredSize(new Dimension(100, 100));
+//        setStartButton.setPreferredSize(new Dimension(mazeBuildingButtons.getWidth() / 3, 100));
         setStartButton.addActionListener(e -> cellAdder.setCellType(CellType.START));
-        setStartButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//        setStartButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         JButton setEndButton = new JButton("Set end");
-        setEndButton.setPreferredSize(new Dimension(100, 100));
+//        setEndButton.setPreferredSize(new Dimension(mazeBuildingButtons.getWidth() / 3, 100));
         setEndButton.addActionListener(e -> cellAdder.setCellType(CellType.END));
-        setEndButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//        setEndButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
         JButton resetButton = new JButton("Reset");
-        resetButton.setPreferredSize(new Dimension(100, 100));
+//        resetButton.setPreferredSize(new Dimension(mazeBuildingButtons.getWidth() / 3, 100));
         resetButton.addActionListener(e -> mazeGUI.reset());
-        resetButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+//        resetButton.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-//        gridLayout.addLayoutComponent("algo_selector", algoSelector);
-//        gridLayout.addLayoutComponent("maze", mazeGUI);
-        setLayout(gridLayout);
-        add(mazeGUI, BorderLayout.NORTH);
-        add(algoSelector, BorderLayout.SOUTH);
-        add(startButton, BorderLayout.WEST);
-        add(setStartButton, BorderLayout.CENTER);
-        add(setEndButton, BorderLayout.EAST);
-        add(resetButton, BorderLayout.PAGE_END);
+        mazeBuildingButtons.add(setStartButton);
+        mazeBuildingButtons.add(setEndButton);
+        mazeBuildingButtons.add(resetButton);
+
+        box.add(mazeGUI);
+        box.add(mazeBuildingButtons);
+        box.add(algoSelector);
+        box.add(startButton);
+        add(box);
         revalidate();
     }
 
