@@ -1,7 +1,6 @@
 package ru.voldemar.bonch_prak_2.gui;
 
-import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.*;
 
 import javax.swing.*;
 
@@ -36,15 +35,24 @@ public class Window extends JFrame {
         JButton startButton = new JButton("Start!");
         startButton.addActionListener(e -> mazeGUI.findPath());
 
-        JTextField algoStepDelayInput = new JTextField("Input delay between algorithm steps in milliseconds (default is 500)");
-        algoStepDelayInput.addActionListener(
-                e -> mazeGUI.setStepDelay(Utils.parseIntOrDefault(algoStepDelayInput.getText(), DEFAULT_STEP_DELAY))
-        );
+        JLabel speedLabel = new JLabel("Speed:", SwingConstants.CENTER);
+        speedLabel.setFont(new Font("Arial", Font.BOLD, 12));
+
+        JSlider algoStepDelaySlider = new JSlider(JSlider.HORIZONTAL, 0, 1000, DEFAULT_STEP_DELAY);
+        algoStepDelaySlider.setMajorTickSpacing(500);
+        algoStepDelaySlider.setMinorTickSpacing(50);
+        algoStepDelaySlider.setPaintTicks(true);
+        algoStepDelaySlider.setPaintLabels(true);
+
+        algoStepDelaySlider.addChangeListener(e -> {
+            mazeGUI.setStepDelay(algoStepDelaySlider.getValue());
+        });
 
         JPanel mazeBuildingButtons = getMazeBuildingButtons(mazeGUI, cellAdder);
         JPanel algoSettings = new JPanel(new FlowLayout());
         algoSettings.add(algoSelector);
-        algoSettings.add(algoStepDelayInput);
+        algoSettings.add(speedLabel);
+        algoSettings.add(algoStepDelaySlider);
 
         box.add(mazeGUI);
         box.add(mazeBuildingButtons);

@@ -17,7 +17,7 @@ public class CellAdder extends MouseAdapter {
     private CellType cellType = CellType.BLOCK;
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         int x = e.getX() / MazePainter.cellSize;
         int y = e.getY() / MazePainter.cellSize;
         if (e.getButton() == MouseEvent.BUTTON1) {

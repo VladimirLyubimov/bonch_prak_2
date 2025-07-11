@@ -3,10 +3,7 @@ package ru.voldemar.bonch_prak_2.gui;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
-import ru.voldemar.bonch_prak_2.algorithm.AStarPathFinder;
-import ru.voldemar.bonch_prak_2.algorithm.AlgoType;
-import ru.voldemar.bonch_prak_2.algorithm.BFSPathFinder;
-import ru.voldemar.bonch_prak_2.algorithm.IPathFindingAlgorithm;
+import ru.voldemar.bonch_prak_2.algorithm.*;
 import ru.voldemar.bonch_prak_2.model.Cell;
 import ru.voldemar.bonch_prak_2.model.CellType;
 import ru.voldemar.bonch_prak_2.model.Maze;
@@ -27,7 +24,9 @@ public class MazePainter extends JComponent {
 
     private static final Map<AlgoType, Function<MazePainter, IPathFindingAlgorithm>> PATH_FINDER_FACTORY = Map.of(
             AlgoType.A_STAR, AStarPathFinder::new,
-            AlgoType.BFS, BFSPathFinder::new
+            AlgoType.BFS, BFSPathFinder::new,
+            AlgoType.DIJKSTRA, DijkstraPathFinder::new,
+            AlgoType.DFS, DFSPathFinder::new
     );
 
     private int stepDelay;
