@@ -1,5 +1,13 @@
 package ru.voldemar.bonch_prak_2.gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.util.Map;
+import java.util.function.Function;
+
+import javax.swing.JComponent;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
@@ -10,11 +18,6 @@ import ru.voldemar.bonch_prak_2.algorithm.IPathFindingAlgorithm;
 import ru.voldemar.bonch_prak_2.model.Cell;
 import ru.voldemar.bonch_prak_2.model.CellType;
 import ru.voldemar.bonch_prak_2.model.Maze;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.Map;
-import java.util.function.Function;
 
 @Setter
 @Getter
