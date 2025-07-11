@@ -25,7 +25,8 @@ public class MazePainter extends JComponent {
     private static final Map<AlgoType, Function<MazePainter, IPathFindingAlgorithm>> PATH_FINDER_FACTORY = Map.of(
             AlgoType.A_STAR, AStarPathFinder::new,
             AlgoType.BFS, BFSPathFinder::new,
-            AlgoType.DIJKSTRA, DijkstraPathFinder::new
+            AlgoType.DIJKSTRA, DijkstraPathFinder::new,
+            AlgoType.DFS, DFSPathFinder::new
     );
 
     private int stepDelay;

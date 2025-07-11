@@ -4,5 +4,6 @@ public enum AlgoType {
 
     A_STAR,
     BFS,
-    DIJKSTRA
+    DIJKSTRA,
+    DFS
 }
