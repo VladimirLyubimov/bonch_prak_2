@@ -20,10 +20,10 @@ public class DijkstraPathFinder extends AbstractPathFinder implements IPathFindi
 
     @Override
     protected Cell doFindPath(Maze<? extends Cell> maze) {
-        Maze<DijkstraCell> DijkstraMaze = new Maze<>(maze, DijkstraCell::new);
-        mazePainter.setMaze(DijkstraMaze);
-        final DijkstraCell start = DijkstraMaze.getFirstCellOfType(CellType.START);
-        final DijkstraCell end = DijkstraMaze.getFirstCellOfType(CellType.END);
+        Maze<DijkstraCell> dijkstraMaze = new Maze<>(maze, DijkstraCell::new);
+        mazePainter.setMaze(dijkstraMaze);
+        final DijkstraCell start = dijkstraMaze.getFirstCellOfType(CellType.START);
+        final DijkstraCell end = dijkstraMaze.getFirstCellOfType(CellType.END);
         Queue<DijkstraCell> queue = new LinkedList<>();
 
         DijkstraCell currentCell = start;
@@ -31,7 +31,7 @@ public class DijkstraPathFinder extends AbstractPathFinder implements IPathFindi
 
         while (currentCell != null && currentCell != end) {
             currentCell.markAsCur();
-            var neighbours = DijkstraMaze.getNotBlockedNeighbours(currentCell);
+            var neighbours = dijkstraMaze.getNotBlockedNeighbours(currentCell);
             for (var neighbour : neighbours) {
                 if( (neighbour.getCost() == -1) || ( neighbour.getCost() > (currentCell.getCost() + 1)) ){
                     neighbour.setCost(currentCell.getCost() + 1);

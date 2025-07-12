@@ -64,9 +64,6 @@ public class Maze<T extends Cell> implements IPrintable {
                 }
             }
         }
-        if (cur != null) {
-            cur.printPath(g);
-        }
 
         g.setColor(Color.BLACK);
         ((Graphics2D) g).setStroke(new BasicStroke(1));
@@ -75,6 +72,10 @@ public class Maze<T extends Cell> implements IPrintable {
         }
         for (int i = 0; i <= columns; i++) {
             g.drawLine(i * MazePainter.cellSize, 0, i * MazePainter.cellSize, rows * MazePainter.cellSize);
+        }
+
+        if (cur != null) {
+            cur.printPath(g);
         }
 
         for (int i = 0; i < rows; i++) {

@@ -1,12 +1,10 @@
 package ru.voldemar.bonch_prak_2.gui;
 
-import java.awt.*;
-
-import javax.swing.*;
-
 import ru.voldemar.bonch_prak_2.algorithm.AlgoType;
 import ru.voldemar.bonch_prak_2.model.CellType;
-import ru.voldemar.bonch_prak_2.utils.Utils;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class Window extends JFrame {
 
@@ -14,6 +12,7 @@ public class Window extends JFrame {
 
     public Window(String title) {
         setTitle(title);
+        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         initComponents();
@@ -66,12 +65,6 @@ public class Window extends JFrame {
         JPanel mazeBuildingButtons = new JPanel(new FlowLayout());
         mazeBuildingButtons.setPreferredSize(new Dimension(mazeGUI.getWidth(), 30));
 
-        JButton addCellSize = new JButton("Increase cell display size");
-        addCellSize.addActionListener(e -> mazeGUI.setCellSize(mazeGUI.getCellSize() + 5));
-
-        JButton subCellSize = new JButton("Decrease cell display size");
-        subCellSize.addActionListener(e -> mazeGUI.setCellSize(mazeGUI.getCellSize() - 5));
-
         JButton setStartButton = new JButton("Set start");
         setStartButton.addActionListener(e -> cellAdder.setCellType(CellType.START));
 
@@ -81,8 +74,6 @@ public class Window extends JFrame {
         JButton resetButton = new JButton("Reset");
         resetButton.addActionListener(e -> mazeGUI.reset());
 
-        mazeBuildingButtons.add(addCellSize);
-        mazeBuildingButtons.add(subCellSize);
         mazeBuildingButtons.add(setStartButton);
         mazeBuildingButtons.add(setEndButton);
         mazeBuildingButtons.add(resetButton);

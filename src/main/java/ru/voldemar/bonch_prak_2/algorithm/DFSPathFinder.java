@@ -19,17 +19,16 @@ public class DFSPathFinder extends AbstractPathFinder implements IPathFindingAlg
 
     @Override
     protected Cell doFindPath(Maze<? extends Cell> maze) {
-        Maze<Cell> DFSMaze = new Maze<>(maze, Cell::new);
-        mazePainter.setMaze(DFSMaze);
-        final Cell start = DFSMaze.getFirstCellOfType(CellType.START);
-        final Cell end = DFSMaze.getFirstCellOfType(CellType.END);
+        Maze<Cell> dfsMaze = new Maze<>(maze, Cell::new);
+        mazePainter.setMaze(dfsMaze);
+        final Cell start = dfsMaze.getFirstCellOfType(CellType.START);
+        final Cell end = dfsMaze.getFirstCellOfType(CellType.END);
         Deque<Cell> stack = new LinkedList<>();
         stack.push(start);
 
         while (!stack.isEmpty()) {
             Cell currentCell = stack.poll();
             if(currentCell.isVisited()){
-                //System.out.println("VISITED");
                 continue;
             }
             currentCell.markAsCur();
@@ -38,7 +37,7 @@ public class DFSPathFinder extends AbstractPathFinder implements IPathFindingAlg
                 currentCell.markAsCur();
                 return currentCell;
             }
-            var neighbours = DFSMaze.getNotBlockedNeighbours(currentCell);
+            var neighbours = dfsMaze.getNotBlockedNeighbours(currentCell);
             for (var neighbour : neighbours) {
                 if (!neighbour.isVisited()) {
                     stack.push(neighbour);

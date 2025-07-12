@@ -81,13 +81,22 @@ public class Cell implements IPrintableCell {
             }
         }
         g.fillRect(getX() *  MazePainter.cellSize, getY() *  MazePainter.cellSize,  MazePainter.cellSize,  MazePainter.cellSize);
+
+        g.setColor(Color.WHITE);
+        int textCoordX = getX() * MazePainter.cellSize + 10;
+        int textCoordY = getY() * MazePainter.cellSize + 90;
+        if (type == CellType.START) {
+            g.drawString("START", textCoordX, textCoordY);
+        } else if (type == CellType.END) {
+            g.drawString("END", textCoordX, textCoordY);
+        }
     }
 
     @Override
     public void printPath(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         if (getPrevOnPath() != null) {
-            g.setColor(Color.BLUE);
+            g.setColor(Color.GREEN);
             g2.setStroke(new BasicStroke(10));
             g2.draw(new Line2D.Double(getXCenter(), getYCenter(), getPrevOnPath().getXCenter(), getPrevOnPath().getYCenter()));
             getPrevOnPath().printPath(g);

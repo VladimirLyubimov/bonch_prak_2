@@ -21,12 +21,12 @@ public class DijkstraCell extends Cell {
     @Override
     public void printText(Graphics g) {
         g.setColor(Color.BLACK);
-        g.setFont(new Font("Ariel", Font.PLAIN, MazePainter.cellSize / 3));
+        g.setFont(new Font("Ariel", Font.PLAIN, MazePainter.cellSize / 9));
 
         if(getCost() != -1){
-            g.drawString("%d".formatted(getCost()), getX() * MazePainter.cellSize, getY() * MazePainter.cellSize + MazePainter.cellSize / 2);
+            g.drawString("Cost is %d".formatted(getCost()), getX() * MazePainter.cellSize + 2, getY() * MazePainter.cellSize + 14);
         } else {
-            g.drawString("∞", getX() * MazePainter.cellSize, getY() * MazePainter.cellSize + MazePainter.cellSize / 2);
+            g.drawString("Cost is unknown", getX() * MazePainter.cellSize + 2, getY() * MazePainter.cellSize + 14);
         }
 
     }

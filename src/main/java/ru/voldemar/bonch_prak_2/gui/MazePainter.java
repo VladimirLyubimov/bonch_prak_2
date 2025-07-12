@@ -73,7 +73,7 @@ public class MazePainter extends JComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (maze != null) {
-            g.setColor(Color.white);
+            g.setColor(Color.gray);
             g.fillRect(0, 0, getWidth(), getHeight());
             maze.print(g);
         }

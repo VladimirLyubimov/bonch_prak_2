@@ -38,7 +38,7 @@ public class AStarCell extends Cell {
     public void printText(Graphics g) {
         g.setColor(Color.BLACK);
         g.setFont(new Font("Ariel", Font.PLAIN, MazePainter.cellSize / 9));
-        g.drawString("Estimate is %.2f".formatted(heuristicsEstimate), getX() * MazePainter.cellSize, getY() * MazePainter.cellSize + 10);
+        g.drawString("Estimate is %.2f".formatted(heuristicsEstimate), getX() * MazePainter.cellSize + 2, getY() * MazePainter.cellSize + 14);
     }
 
     @Override
